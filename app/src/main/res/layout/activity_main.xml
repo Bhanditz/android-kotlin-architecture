@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Base.ContainerWithoutPadding"
-    tools:context="com.mooveit.kotlin.kotlintemplateproject.MainActivity">
+    tools:context="com.mooveit.kotlin.kotlintemplateproject.presentation.view.home.MainActivity">
 
     <TextView
         style="@style/Base.Wrapper"

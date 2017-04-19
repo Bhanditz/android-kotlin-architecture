@@ -26,18 +26,40 @@ ext {
     supportLibraryVersion = '25.3.1'
     espressoCoreVersion = '2.2.2'
     constraintLayoutVersion = '1.0.1'
+    retrofitVersion = "2.1.0"
+    okHttpVersion = "3.5.0"
+    daggerVersion = "2.8"
+    javaxVersion = "1"
+    rxjava2Version = "2.0.0"
+    rxjavaAdapterVersion = "1.0.0"
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile "junit:junit:$junitVersion"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoCoreVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    testCompile "junit:junit:$junitVersion"
+
+    // Android
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    compile "javax.inject:javax.inject:$javaxVersion"
+
+    // External
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxjavaAdapterVersion}"
+    compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    compile "com.google.dagger:dagger:$daggerVersion"
+    compile "io.reactivex.rxjava2:rxkotlin:$rxjava2Version"
+    compile "io.reactivex.rxjava2:rxandroid:$rxjava2Version"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 }
+
 repositories {
     mavenCentral()
 }
