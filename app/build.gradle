@@ -6,10 +6,13 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.mooveit.kotlin.kotlintemplateproject"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,26 +28,28 @@ ext {
     junitVersion = '4.12'
     supportLibraryVersion = '25.3.1'
     espressoCoreVersion = '2.2.2'
-    constraintLayoutVersion = '1.0.1'
     retrofitVersion = "2.1.0"
     okHttpVersion = "3.5.0"
     daggerVersion = "2.8"
     javaxVersion = "1"
     rxjava2Version = "2.0.0"
     rxjavaAdapterVersion = "1.0.0"
+    butterKnifeVersion = "8.5.1"
+    leakCanaryVersion = "1.5"
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoCoreVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile "junit:junit:$junitVersion"
 
     // Android
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    compile "com.android.support:cardview-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
     compile "javax.inject:javax.inject:$javaxVersion"
 
@@ -58,6 +63,10 @@ dependencies {
     compile "io.reactivex.rxjava2:rxkotlin:$rxjava2Version"
     compile "io.reactivex.rxjava2:rxandroid:$rxjava2Version"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    compile "com.jakewharton:butterknife:$butterKnifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 }
 
 repositories {

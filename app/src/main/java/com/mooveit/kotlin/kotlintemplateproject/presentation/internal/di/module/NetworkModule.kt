@@ -28,7 +28,7 @@ class NetworkModule(private val mBaseApiUrl: String) {
 
     @Provides
     @Singleton
-    internal fun provideGson(): Gson? {
+    internal fun provideGson(): Gson {
         return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
     }
 
@@ -67,6 +67,6 @@ class NetworkModule(private val mBaseApiUrl: String) {
     @Provides
     @Singleton
     internal fun providePetStoreService(retrofit: Retrofit): PetStoreService {
-        return retrofit.create<PetStoreService>(PetStoreService::class.java!!)
+        return retrofit.create<PetStoreService>(PetStoreService::class.java)
     }
 }

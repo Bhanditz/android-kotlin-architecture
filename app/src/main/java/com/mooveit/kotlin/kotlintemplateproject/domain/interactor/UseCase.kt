@@ -19,16 +19,13 @@ import io.reactivex.schedulers.Schedulers
  */
 abstract class UseCase<T, Params> internal constructor(private val threadExecutor: ThreadExecutor,
                                                        private val postExecutionThread: PostExecutionThread) {
-    private val disposables: CompositeDisposable
 
-    init {
-        this.disposables = CompositeDisposable()
-    }
+    private val disposables: CompositeDisposable = CompositeDisposable()
 
     /**
      * Builds an [Observable] which will be used when executing the current [UseCase].
      */
-    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params?): Observable<T>
 
     /**
      * Executes the current use case.
@@ -38,7 +35,7 @@ abstract class UseCase<T, Params> internal constructor(private val threadExecuto
      * *
      * @param params Parameters (Optional) used to build/execute this use case.
      */
-    fun execute(observer: DisposableObserver<T>, params: Params) {
+    fun execute(observer: DisposableObserver<T>, params: Params?) {
         val observable = this.buildUseCaseObservable(params)
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.scheduler)
