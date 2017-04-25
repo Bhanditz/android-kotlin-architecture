@@ -3,6 +3,7 @@ package com.mooveit.kotlin.kotlintemplateproject.presentation.view.home
 import android.support.annotation.NonNull
 import android.view.View
 import com.mooveit.kotlin.kotlintemplateproject.data.entity.Pet
+import com.mooveit.kotlin.kotlintemplateproject.domain.interactor.DeletePet
 import com.mooveit.kotlin.kotlintemplateproject.domain.interactor.GetPetList
 import com.mooveit.kotlin.kotlintemplateproject.presentation.common.presenter.Presenter
 import com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.scope.PerActivity
@@ -10,7 +11,8 @@ import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
 @PerActivity
-class HomePresenter @Inject constructor(private val mUseCase: GetPetList) : Presenter(mUseCase) {
+class HomePresenter @Inject constructor(private val mGetPetListUseCase: GetPetList,
+                                        private val mDeletePetUseCase: DeletePet) : Presenter(mGetPetListUseCase) {
 
     private var mHomeView: HomeView? = null
 
@@ -30,7 +32,15 @@ class HomePresenter @Inject constructor(private val mUseCase: GetPetList) : Pres
 
     fun fetchPets() {
         mHomeView!!.showProgress()
-        mUseCase.execute(PetListObserver(), null)
+        mGetPetListUseCase.execute(PetListObserver(), null)
+    }
+
+    fun deletePet(pet: Pet) {
+        mDeletePetUseCase.execute(PetDeleteObserver(), pet.externalId)
+    }
+
+    private fun onObserverError(error: Throwable) {
+        error.message?.let { mHomeView!!.showError(it) }
     }
 
     private inner class PetListObserver : DisposableObserver<List<Pet>>() {
@@ -41,13 +51,26 @@ class HomePresenter @Inject constructor(private val mUseCase: GetPetList) : Pres
         }
 
         override fun onComplete() {
-
         }
 
         override fun onError(error: Throwable) {
             mHomeView!!.hideProgress()
-            error.message?.let { mHomeView!!.showError(it) }
+            onObserverError(error)
             mHomeView!!.showPets()
+        }
+    }
+
+    private inner class PetDeleteObserver : DisposableObserver<Void>() {
+
+        override fun onNext(void: Void) {
+        }
+
+        override fun onComplete() {
+            mHomeView!!.showPets()
+        }
+
+        override fun onError(error: Throwable) {
+            onObserverError(error)
         }
     }
 }

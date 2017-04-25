@@ -146,6 +146,7 @@ class HomeActivity : BaseActivity(), HomeView, PetsListAdapter.OnPetItemClickLis
     }
 
     override fun onPetItemDeleted(pet: Pet) {
+        mPresenter.deletePet(pet)
     }
 
     private fun onPetsListChanged() {
