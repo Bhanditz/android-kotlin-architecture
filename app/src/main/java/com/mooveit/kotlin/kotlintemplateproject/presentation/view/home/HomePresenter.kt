@@ -8,11 +8,13 @@ import com.mooveit.kotlin.kotlintemplateproject.domain.interactor.GetPetList
 import com.mooveit.kotlin.kotlintemplateproject.presentation.common.presenter.Presenter
 import com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.scope.PerActivity
 import io.reactivex.observers.DisposableObserver
+import retrofit2.Response
 import javax.inject.Inject
 
 @PerActivity
 class HomePresenter @Inject constructor(private val mGetPetListUseCase: GetPetList,
-                                        private val mDeletePetUseCase: DeletePet) : Presenter(mGetPetListUseCase) {
+                                        private val mDeletePetUseCase: DeletePet) :
+        Presenter(mGetPetListUseCase, mDeletePetUseCase) {
 
     private var mHomeView: HomeView? = null
 
@@ -60,13 +62,13 @@ class HomePresenter @Inject constructor(private val mGetPetListUseCase: GetPetLi
         }
     }
 
-    private inner class PetDeleteObserver : DisposableObserver<Void>() {
+    private inner class PetDeleteObserver : DisposableObserver<Response<Void>>() {
 
-        override fun onNext(void: Void) {
+        override fun onNext(void: Response<Void>) {
+            mHomeView!!.showPets()
         }
 
         override fun onComplete() {
-            mHomeView!!.showPets()
         }
 
         override fun onError(error: Throwable) {

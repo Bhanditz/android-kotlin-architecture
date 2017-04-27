@@ -1,5 +1,7 @@
 package com.mooveit.kotlin.kotlintemplateproject.presentation.view.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -61,6 +63,12 @@ class HomeActivity : BaseActivity(), HomeView, PetsListAdapter.OnPetItemClickLis
 
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
             onPetsListChanged()
+        }
+    }
+
+    companion object IntentFactory {
+        fun getIntent(context: Context): Intent {
+            return Intent(context, HomeActivity::class.java)
         }
     }
 

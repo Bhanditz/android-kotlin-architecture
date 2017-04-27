@@ -11,6 +11,14 @@ class Pet {
     var tags: List<Tag>? = null
     var status: String? = null
 
+    constructor()
+
+    constructor(externalId: Long, name: String?, status: String?) {
+        this.externalId = externalId
+        this.name = name
+        this.status = status
+    }
+
     override fun toString(): String {
         return "Pet(externalId=$externalId, name=$name, photoUrls=$photoUrls, tags=$tags, status=$status)"
     }

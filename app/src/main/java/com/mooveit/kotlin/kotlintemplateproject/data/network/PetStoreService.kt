@@ -2,6 +2,7 @@ package com.mooveit.kotlin.kotlintemplateproject.data.network
 
 import com.mooveit.kotlin.kotlintemplateproject.data.entity.Pet
 import io.reactivex.Observable
+import retrofit2.Response
 
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -22,7 +23,7 @@ interface PetStoreService {
     fun updatePet(@Body pet: Pet): Observable<Pet>
 
     @DELETE("pet/{petId}")
-    fun deletePet(@Path("petId") petId: Long): Observable<Void>
+    fun deletePet(@Path("petId") petId: Long): Observable<Response<Void>>
 
     @GET("pet/{petId}")
     fun getPet(petId: Long): Observable<Pet>
