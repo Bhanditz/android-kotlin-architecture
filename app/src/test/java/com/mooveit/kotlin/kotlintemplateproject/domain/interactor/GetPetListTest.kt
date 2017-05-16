@@ -1,9 +1,9 @@
 package com.mooveit.kotlin.kotlintemplateproject.domain.interactor
 
 import com.mooveit.kotlin.kotlintemplateproject.data.network.PetStoreService
-import com.mooveit.kotlin.kotlintemplateproject.data.repository.PetRepository
 import com.mooveit.kotlin.kotlintemplateproject.domain.excecutor.PostExecutionThread
 import com.mooveit.kotlin.kotlintemplateproject.domain.excecutor.ThreadExecutor
+import com.mooveit.kotlin.kotlintemplateproject.domain.repository.PetRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,7 +22,7 @@ class GetPetListTest {
     private lateinit var mockPetService: PetStoreService
     @Mock
     private lateinit var mockPetRepository: PetRepository
-    
+
     private lateinit var getPetList: GetPetList
 
     @Before
@@ -34,7 +34,7 @@ class GetPetListTest {
     fun getPets_forwardsRequestToRepository() {
         getPetList.buildUseCaseObservable(null)
 
-        verify<PetRepository>(mockPetRepository).petsAvailable()
+        verify<PetRepository>(mockPetRepository).getPets()
         verifyNoMoreInteractions(mockPetRepository)
         verifyZeroInteractions(mockThreadExecutor)
         verifyZeroInteractions(mockPostExecutionThread)

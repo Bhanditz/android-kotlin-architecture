@@ -8,16 +8,16 @@ open class Presenter(vararg useCases: UseCase<*, *>) {
     private val useCasesList: List<UseCase<*, *>> = ArrayList()
 
     init {
-        for (userCase in useCases) {
-            useCasesList.plus(userCase)
+        for (useCase in useCases) {
+            useCasesList.plus(useCase)
         }
     }
 
     open fun onResume(view: View) {}
 
     open fun onPause() {
-        for (userCase in useCasesList) {
-            userCase.dispose()
+        for (useCase in useCasesList) {
+            useCase.dispose()
         }
     }
 
