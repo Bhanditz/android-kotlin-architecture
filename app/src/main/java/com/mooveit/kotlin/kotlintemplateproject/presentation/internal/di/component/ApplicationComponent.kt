@@ -2,9 +2,9 @@ package com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.compon
 
 import android.app.Application
 import android.content.Context
-import com.mooveit.kotlin.kotlintemplateproject.data.repository.PetRepository
 import com.mooveit.kotlin.kotlintemplateproject.domain.excecutor.PostExecutionThread
 import com.mooveit.kotlin.kotlintemplateproject.domain.excecutor.ThreadExecutor
+import com.mooveit.kotlin.kotlintemplateproject.domain.repository.PetRepository
 import com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.module.ApplicationModule
 import com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.module.NetworkModule
 import com.mooveit.kotlin.kotlintemplateproject.presentation.internal.di.module.RepositoryModule
@@ -23,5 +23,5 @@ interface ApplicationComponent {
 
     fun postExecutionThread(): PostExecutionThread
 
-    fun userRepository(): PetRepository
+    fun petRepository(): PetRepository
 }

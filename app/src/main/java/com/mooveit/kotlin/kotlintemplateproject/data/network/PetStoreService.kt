@@ -13,6 +13,9 @@ import retrofit2.http.Path
 
 interface PetStoreService {
 
+    @GET("pet/{petId}")
+    fun getPet(petId: Long): Observable<Pet>
+
     @get:GET("pet/findByStatus?status=available")
     val petsAvailable: Observable<List<Pet>>
 
@@ -24,7 +27,4 @@ interface PetStoreService {
 
     @DELETE("pet/{petId}")
     fun deletePet(@Path("petId") petId: Long): Observable<Response<Void>>
-
-    @GET("pet/{petId}")
-    fun getPet(petId: Long): Observable<Pet>
 }
